@@ -19,24 +19,26 @@ from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
 
 from simple_planning_poker.views.empty import EmptyView
-from simple_planning_poker.views.storydelete import StoryDeleteView
-from simple_planning_poker.views.roomget import RoomGetByCodeView
-from simple_planning_poker.views.roomjoin import RoomJoinByCodeView
-from simple_planning_poker.views.roomlistcreate import RoomListCreateView
-from simple_planning_poker.views.register import RegisterView
 from simple_planning_poker.views.login import CustomAuthToken
-from simple_planning_poker.views.storycreate import StoryCreateView
-from simple_planning_poker.views.userget import UserGetByTokenView, UserGetByIdView
+from simple_planning_poker.views.register import RegisterView
+from simple_planning_poker.views.guestlogin import GuestLoginView
+from simple_planning_poker.views.roomget import RoomGetByCodeView
 from simple_planning_poker.views.votecreate import VoteCreateView
-from simple_planning_poker.views.storyget import StoryGetByIdView, StoryGetByRoomView
-from simple_planning_poker.views.votedelete import VoteDeleteByStoryView
 from simple_planning_poker.views.voteget import VoteGetByStoryView
+from simple_planning_poker.views.roomjoin import RoomJoinByCodeView
+from simple_planning_poker.views.storydelete import StoryDeleteView
+from simple_planning_poker.views.storycreate import StoryCreateView
+from simple_planning_poker.views.votedelete import VoteDeleteByStoryView
+from simple_planning_poker.views.roomlistcreate import RoomListCreateView
+from simple_planning_poker.views.userget import UserGetByTokenView, UserGetByIdView
+from simple_planning_poker.views.storyget import StoryGetByIdView, StoryGetByRoomView
 
 urlpatterns = [
     # path('', include('simple_planning_poker.urls')),
     path('admin/', admin.site.urls),
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/login/', CustomAuthToken.as_view(), name='login'),
+    path('auth/guestlogin/', GuestLoginView.as_view(), name='guest-login'),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token),
     path('api/rooms/', RoomListCreateView.as_view(), name='room-list-create'),
@@ -51,5 +53,5 @@ urlpatterns = [
     path('api/votes/<int:story_id>/delete/', VoteDeleteByStoryView.as_view(), name='vote-delete'),
     path('api/userinfo/', UserGetByTokenView.as_view(), name='user-info-by-token'),
     path('api/userinfo/<int:user_id>/', UserGetByIdView.as_view(), name='user-info-by-id'),
-    path('api/empty/', EmptyView.as_view(), name='empty-view')
+    path('api/empty/', EmptyView.as_view(), name='empty-view'),
 ]
