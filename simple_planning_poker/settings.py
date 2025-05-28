@@ -57,16 +57,6 @@ CHANNEL_LAYERS = {
     },
 }
 
-if DEBUG:
-    CHANNEL_LAYERS = {
-        "default": {
-            "BACKEND": "channels_redis.core.RedisChannelLayer",
-            "CONFIG": {
-                "hosts": [("127.0.0.1", 6379)]
-            },
-        },
-    }
-
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
@@ -96,13 +86,6 @@ CORS_ALLOWED_ORIGINS = [
     "https://simple-planning-poker.onrender.com",
     "http://localhost:5173",
 ]
-
-if DEBUG:
-    CORS_ALLOW_CREDENTIALS = True
-    CORS_ALLOWED_ORIGINS = [
-        "http://localhost:3000",
-        "http://localhost:5173",
-    ]
 
 ROOT_URLCONF = 'simple_planning_poker.urls'
 
