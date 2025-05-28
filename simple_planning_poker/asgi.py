@@ -11,17 +11,19 @@ import os
 import django
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-from simple_planning_poker.middlewares.tokenauth import TokenAuthMiddleware
+
+# from simple_planning_poker.middlewares.tokenauth import TokenAuthMiddleware
+from simple_planning_poker.middlewares.cookietokenauth import CookieTokenAuthMiddleware
 from simple_planning_poker.routing import websocket_urlpatterns
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple_planning_poker.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "simple_planning_poker.settings")
 django.setup()
 
 django_asgi_app = get_asgi_application()
 
-application = ProtocolTypeRouter({
-    "http": get_asgi_application(),
-    "websocket": TokenAuthMiddleware(
-        URLRouter(websocket_urlpatterns)
-    ),
-})
+application = ProtocolTypeRouter(
+    {
+        "http": get_asgi_application(),
+        "websocket": CookieTokenAuthMiddleware(URLRouter(websocket_urlpatterns)),
+    }
+)

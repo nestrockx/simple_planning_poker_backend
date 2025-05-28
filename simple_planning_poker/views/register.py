@@ -3,6 +3,7 @@ from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from django.http import HttpResponse
 
 from simple_planning_poker.models.userprofile import UserProfile
 
@@ -24,4 +25,16 @@ class RegisterView(APIView):
         UserProfile.objects.create(user=user, nickname=nickname)
 
         token = Token.objects.create(user=user)
-        return Response({'token': token.key}, status=201)
+
+        response = HttpResponse(status=201)
+        response.set_cookie(
+            key='accessToken',
+            value=token.key,
+            max_age=60*60*24,  # 1 day
+            httponly=True,
+            secure=False, # Set to True in production with HTTPS
+            samesite='Lax',
+            path='/',
+        )
+        return response
+    

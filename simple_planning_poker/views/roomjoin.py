@@ -1,4 +1,5 @@
-from rest_framework import generics, permissions
+from rest_framework.permissions import IsAuthenticated
+from simple_planning_poker.authentication import CookieTokenAuthentication
 from rest_framework.exceptions import NotFound
 from simple_planning_poker.models.room import Room
 from simple_planning_poker.serializers.room import RoomSerializer
@@ -7,7 +8,8 @@ from rest_framework.views import APIView
 
 class RoomJoinByCodeView(APIView):
     serializer_class = RoomSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [CookieTokenAuthentication]
+    permission_classes = [IsAuthenticated]
         
     def post(self, request, code):
         try:

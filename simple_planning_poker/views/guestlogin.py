@@ -1,8 +1,10 @@
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
+from django.http import HttpResponse
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
+import json
 
 from simple_planning_poker.models.userprofile import UserProfile
 
@@ -23,9 +25,17 @@ class GuestLoginView(APIView):
 
         token = Token.objects.create(user=user)
 
-        return Response({
-            "token": token.key
-        }, status=201)
+        response = HttpResponse(status=201)
+        response.set_cookie(
+            key='accessToken',
+            value=token.key,
+            max_age=60*60*24,  # 1 day
+            httponly=True,
+            secure=False, # Set to True in production with HTTPS
+            samesite='Lax',
+            path='/',
+        )
+        return response
 
     def _generate_guest_username(self):
         while True:

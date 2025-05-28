@@ -1,10 +1,13 @@
-from rest_framework import generics, permissions
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from simple_planning_poker.authentication import CookieTokenAuthentication
 from simple_planning_poker.models.vote import Vote
 from simple_planning_poker.serializers.vote import VoteSerializer
 
 class VoteCreateView(generics.CreateAPIView):
     serializer_class = VoteSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    authentication_classes = [CookieTokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         story_id = serializer.validated_data['story_id']

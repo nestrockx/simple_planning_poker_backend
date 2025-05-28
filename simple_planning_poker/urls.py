@@ -20,6 +20,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from simple_planning_poker.views.empty import EmptyView
 from simple_planning_poker.views.login import CustomAuthToken
+from simple_planning_poker.views.logout import LogoutView
 from simple_planning_poker.views.register import RegisterView
 from simple_planning_poker.views.guestlogin import GuestLoginView
 from simple_planning_poker.views.roomget import RoomGetByCodeView
@@ -39,6 +40,7 @@ urlpatterns = [
     path('auth/register/', RegisterView.as_view(), name='register'),
     path('auth/login/', CustomAuthToken.as_view(), name='login'),
     path('auth/guestlogin/', GuestLoginView.as_view(), name='guest-login'),
+    path('auth/logout/', LogoutView.as_view(), name='logout'),
     path('api-auth/', include('rest_framework.urls')),
     path('api-token-auth/', obtain_auth_token),
     path('api/rooms/', RoomListCreateView.as_view(), name='room-list-create'),

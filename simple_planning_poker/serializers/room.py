@@ -6,7 +6,6 @@ from simple_planning_poker.serializers.story import StorySerializer
 class RoomSerializer(serializers.ModelSerializer):
     created_by = UserSerializer(read_only=True)
     participants = UserSerializer(many=True, read_only=True)
-    
 
     class Meta:
         model = Room

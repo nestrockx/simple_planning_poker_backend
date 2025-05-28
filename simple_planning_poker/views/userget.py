@@ -6,10 +6,11 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework import status
 from django.contrib.auth.models import User
 
+from simple_planning_poker.authentication import CookieTokenAuthentication
 from simple_planning_poker.serializers.user import UserSerializer
 
 class UserGetByTokenView(APIView):
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [CookieTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
@@ -17,7 +18,7 @@ class UserGetByTokenView(APIView):
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 class UserGetByIdView(APIView):
-    authentication_classes = [TokenAuthentication]
+    authentication_classes = [CookieTokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def get(self, request, user_id):
