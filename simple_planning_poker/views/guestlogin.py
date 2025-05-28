@@ -1,17 +1,20 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
-from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
-import json
+from rest_framework.throttling import AnonRateThrottle
 
 from simple_planning_poker.models.userprofile import UserProfile
 
 import random
 import string
 
+class CustomThrottle(AnonRateThrottle):
+    rate = '5/hour'
+
 class GuestLoginView(APIView):
+    throttle_classes = [CustomThrottle]
     permission_classes = [AllowAny]
 
     def post(self, request):

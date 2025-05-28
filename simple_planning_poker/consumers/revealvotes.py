@@ -263,11 +263,9 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
 
     ## limit users in the room to 10
     ## limit stories in the room to 10
-    ## stories consumer
-    ## users consumer
-    ## join button for spectator user
     ## zustand redux
     ## celery for speed
     ## more reactive with useEffect
     ## validating existing user
-    ## resetvotesconsumer
+    ## ddos protection
+    ## editable user nickname
