@@ -18,18 +18,17 @@ import environ
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+env = environ.Env()
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-9j%9!(8p!3&kub=4ae^w9vdp8$eo@alx=di!9wuh^g1$l&9@-c'
+SECRET_KEY = env('SECRET_KEY')
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -48,9 +47,6 @@ INSTALLED_APPS = [
 ]
 
 ASGI_APPLICATION = 'simple_planning_poker.asgi.application'
-
-env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
 CHANNEL_LAYERS = {
     "default": {
@@ -102,6 +98,10 @@ if DEBUG:
         "http://localhost:3000",
         "http://localhost:5173",
     ]
+
+CORS_ALLOWED_ORIGINS = [    
+    "https://simple-planning-poker.onrender.com",
+]
 
 ROOT_URLCONF = 'simple_planning_poker.urls'
 
