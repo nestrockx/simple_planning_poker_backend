@@ -12,7 +12,7 @@ class LogoutView(APIView):
         response = HttpResponse(status=204)
         response.delete_cookie(
             key = "accessToken",
-            samesite="Lax",
+            samesite="None",
             path="/",
         )
         return response

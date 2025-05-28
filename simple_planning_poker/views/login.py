@@ -14,8 +14,8 @@ class CustomAuthToken(ObtainAuthToken):
             value=token.key,
             max_age=60*60*24,  # 1 day
             httponly=True,
-            secure=False, # Set to True in production with HTTPS
-            samesite='Lax',
+            secure=True, # Set to True in production with HTTPS
+            samesite='None',
             path='/',
         )
         return response
