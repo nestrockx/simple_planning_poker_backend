@@ -91,6 +91,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [    
+    "https://simple-planning-poker.onrender.com",
+]
+
 if DEBUG:
     CORS_ALLOW_CREDENTIALS = True
 
@@ -98,10 +103,6 @@ if DEBUG:
         "http://localhost:3000",
         "http://localhost:5173",
     ]
-
-CORS_ALLOWED_ORIGINS = [    
-    "https://simple-planning-poker.onrender.com",
-]
 
 ROOT_URLCONF = 'simple_planning_poker.urls'
 
