@@ -3,12 +3,12 @@ from rest_framework.authtoken.models import Token
 from rest_framework.throttling import AnonRateThrottle
 from django.http import HttpResponse
 
-class CustomThrottle(AnonRateThrottle):
+class CustomAnonThrottle(AnonRateThrottle):
     rate = '10/hour'
 
 # Login (token auth)
 class CustomAuthToken(ObtainAuthToken):
-    throttle_classes = [CustomThrottle]
+    throttle_classes = [CustomAnonThrottle]
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)

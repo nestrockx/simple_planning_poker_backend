@@ -8,12 +8,12 @@ from django.http import HttpResponse
 
 from simple_planning_poker.models.userprofile import UserProfile
 
-class CustomThrottle(AnonRateThrottle):
+class CustomAnonThrottle(AnonRateThrottle):
     rate = '2/hour'
 
 # Register
 class RegisterView(APIView):
-    throttle_classes = [CustomThrottle]
+    throttle_classes = [CustomAnonThrottle]
     permission_classes = [AllowAny]
 
     def post(self, request):
