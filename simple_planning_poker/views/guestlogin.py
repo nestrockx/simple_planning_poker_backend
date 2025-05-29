@@ -38,7 +38,7 @@ class GuestLoginView(APIView):
             max_age=60*60*24,  # 1 day
             httponly=True,
             secure=True, # Set to True in production with HTTPS
-            samesite='None',
+            samesite='Lax',
             path='/',
         )
         return response
