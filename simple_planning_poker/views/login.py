@@ -21,9 +21,9 @@ class CustomAuthToken(ObtainAuthToken):
         response.set_cookie(
             key='accessToken',
             value=token.key,
-            max_age=60*60*24,  # 1 day
+            max_age=60*60*24, # 1 day
             httponly=True,
-            secure=True, # Set to True in production with HTTPS
+            secure=True,
             samesite='Lax',
             path='/',
         )
