@@ -92,6 +92,7 @@ MIDDLEWARE = [
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "https://simple-planning-poker.onrender.com",
+    "https://simple-planning-poker-frontend.onrender.com"
     "http://localhost:5173",
 ]
 
