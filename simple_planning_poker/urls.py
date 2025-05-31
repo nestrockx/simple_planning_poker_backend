@@ -24,6 +24,7 @@ from simple_planning_poker.views.logout import LogoutView
 from simple_planning_poker.views.register import RegisterView
 from simple_planning_poker.views.guestlogin import GuestLoginView
 from simple_planning_poker.views.roomget import RoomGetByCodeView
+from simple_planning_poker.views.userprofileupdate import UserProfileUpdateView
 from simple_planning_poker.views.votecreate import VoteCreateView
 from simple_planning_poker.views.voteget import VoteGetByStoryView
 from simple_planning_poker.views.roomjoin import RoomJoinByCodeView
@@ -56,4 +57,5 @@ urlpatterns = [
     path('api/userinfo/', UserGetByTokenView.as_view(), name='user-info-by-token'),
     path('api/userinfo/<int:user_id>/', UserGetByIdView.as_view(), name='user-info-by-id'),
     path('api/empty/', EmptyView.as_view(), name='empty-view'),
+    path('api/profile/', UserProfileUpdateView.as_view(), name='update-profile'),
 ]
