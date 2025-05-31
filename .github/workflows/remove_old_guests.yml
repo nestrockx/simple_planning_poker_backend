@@ -33,5 +33,6 @@ jobs:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
           ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
+          REDIS_URL: ${{ secrets.REDIS_URL }}
         run: |
           python manage.py remove_old_guests
