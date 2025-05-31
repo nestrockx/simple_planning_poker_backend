@@ -29,7 +29,9 @@ jobs:
       - name: Run remove old guests management command
         env:
           DJANGO_SETTINGS_MODULE: simple_planning_poker.settings
+          DEBUG: ${{ secrets.DEBUG }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          ALLOWED_HOSTS: ${{ secrets.ALLOWED_HOSTS }}
         run: |
           python manage.py remove_old_guests
