@@ -267,5 +267,5 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
     ## celery for speed
     ## more reactive with useEffect
     ## validating existing user
-    ## ddos protection
     ## editable user nickname
+    ## emoji wheel
