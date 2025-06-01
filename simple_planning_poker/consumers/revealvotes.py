@@ -128,6 +128,29 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
                     }
                 }
             )
+        elif action == 'summon':
+            title = data['title']
+            is_revealed = data['is_revealed']
+            await self.channel_layer.group_send(
+                self.group_name,
+                {
+                    'type': 'summon',
+                    'story': {
+                        'id': story_id,
+                        'title': title,
+                        'is_revealed': is_revealed,
+                    }
+                }
+            )
+
+    async def summon(self, event):
+        """
+        Send the active story to the clients.
+        """
+        await self.send(text_data=json.dumps({
+            'type': event['type'],
+            'story': event['story']
+        }))
 
     async def add_story(self, event):
         """
