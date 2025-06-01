@@ -19,6 +19,7 @@ from django.urls import include, path
 from rest_framework.authtoken.views import obtain_auth_token
 
 from simple_planning_poker.views.empty import EmptyView
+from simple_planning_poker.views.health import health_check
 from simple_planning_poker.views.login import CustomAuthToken
 from simple_planning_poker.views.logout import LogoutView
 from simple_planning_poker.views.register import RegisterView
@@ -58,4 +59,5 @@ urlpatterns = [
     path('api/userinfo/<int:user_id>/', UserGetByIdView.as_view(), name='user-info-by-id'),
     path('api/empty/', EmptyView.as_view(), name='empty-view'),
     path('api/profile/', UserProfileUpdateView.as_view(), name='update-profile'),
+    path('health/', health_check),
 ]
