@@ -16,7 +16,7 @@ class CookieTokenAuthMiddleware(BaseMiddleware):
                 key, value = item.strip().split("=", 1)
                 cookies[key] = value
 
-        token = cookies.get("accessToken")  # Use the actual cookie name
+        token = cookies.get("accessToken")
 
         if not token:
             raise AuthenticationFailed("No token provided.")
