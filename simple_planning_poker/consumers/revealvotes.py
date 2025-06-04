@@ -15,6 +15,7 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         await self.accept()
 
+        print(f"Sending: {self.user.username}")
         await self.channel_layer.group_send(
             self.group_name,
             {
