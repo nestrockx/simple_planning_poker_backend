@@ -5,10 +5,11 @@ from simple_planning_poker.models.room import Room
 from simple_planning_poker.serializers.room import RoomSerializer
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.authentication import TokenAuthentication
 
 class RoomJoinByCodeView(APIView):
     serializer_class = RoomSerializer
-    authentication_classes = [CookieTokenAuthentication]
+    authentication_classes = [CookieTokenAuthentication, TokenAuthentication]
     permission_classes = [IsAuthenticated]
         
     def post(self, request, code):

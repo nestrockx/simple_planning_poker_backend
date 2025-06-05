@@ -4,9 +4,10 @@ from rest_framework import status, permissions
 
 from simple_planning_poker.authentication import CookieTokenAuthentication
 from simple_planning_poker.serializers.userprofile import UserProfileSerializer
+from rest_framework.authentication import TokenAuthentication
 
 class UserProfileUpdateView(APIView):
-    authentication_classes = [CookieTokenAuthentication]
+    authentication_classes = [CookieTokenAuthentication, TokenAuthentication]
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
