@@ -1,13 +1,10 @@
 from django.http import HttpResponse
 from rest_framework.views import APIView
 
-from rest_framework.permissions import IsAuthenticated
-from simple_planning_poker.authentication import CookieTokenAuthentication
-from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import AllowAny
 
 class LogoutView(APIView):
-    authentication_classes = [CookieTokenAuthentication, TokenAuthentication]
-    permission_classes = [IsAuthenticated]
+    permission_classes = [AllowAny]
 
     def post(self, request):
         response = HttpResponse(status=204)
