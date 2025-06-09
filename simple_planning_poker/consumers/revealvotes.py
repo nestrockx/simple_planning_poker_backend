@@ -284,12 +284,3 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
             user_id=user,
             defaults={'value': value}
         )
-
-    ## limit users in the room to 10
-    ## limit stories in the room to 10
-    ## zustand redux
-    ## celery for speed
-    ## more reactive with useEffect
-    ## validating existing user
-    ## editable user nickname
-    ## emoji wheel

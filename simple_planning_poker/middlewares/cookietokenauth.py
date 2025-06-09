@@ -5,11 +5,9 @@ from rest_framework.exceptions import AuthenticationFailed
 
 class CookieTokenAuthMiddleware(BaseMiddleware):
     async def __call__(self, scope, receive, send):
-        # Get headers and extract the 'cookie' header
         headers = dict(scope.get("headers", []))
         raw_cookie = headers.get(b"cookie", b"").decode("utf-8")
 
-        # Parse the cookie string into a dict
         cookies = {}
         for item in raw_cookie.split(";"):
             if "=" in item:
