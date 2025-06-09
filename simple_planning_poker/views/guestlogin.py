@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.authtoken.models import Token
@@ -31,8 +31,9 @@ class GuestLoginView(APIView):
 
         token = Token.objects.create(user=user)
 
-        response = HttpResponse(status=201)
-        response.set_cookie(
+        json_response = Response({'accessToken': token.key}, status = 201)
+                
+        json_response.set_cookie(
             key='accessToken',
             value=token.key,
             max_age=60*60*24, # 1 day
@@ -41,7 +42,7 @@ class GuestLoginView(APIView):
             samesite='Lax',
             path='/',
         )
-        return response
+        return json_response
 
     def _generate_guest_username(self):
         while True:
