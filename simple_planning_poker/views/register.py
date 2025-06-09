@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
-from rest_framework.response import Response
+from django.http import HttpResponse
 
 from simple_planning_poker.models.userprofile import UserProfile
 
@@ -34,9 +34,8 @@ class RegisterView(APIView):
 
         token = Token.objects.create(user=user)
 
-        json_response = Response({'accessToken': token.key}, status = 201)
-                
-        json_response.set_cookie(
+        response = HttpResponse(status=201)
+        response.set_cookie(
             key='accessToken',
             value=token.key,
             max_age=60*60*24, # 1 day
@@ -45,5 +44,5 @@ class RegisterView(APIView):
             samesite='Lax',
             path='/',
         )
-        return json_response
+        return response
     
