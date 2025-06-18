@@ -50,99 +50,100 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         action = data['action']
         story_id = data['story_id']
-
-        if action == 'reveal':
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'reveal_votes',
-                    'reveal': {
-                        'story_id': story_id,
-                        'username': self.user.username,
-                        'value': True,
+        
+        match action:
+            case 'reveal':
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'reveal_votes',
+                        'reveal': {
+                            'story_id': story_id,
+                            'username': self.user.username,
+                            'value': True,
+                        }
                     }
-                }
-            )
-            asyncio.create_task(self.safe_story_reveal_update(story_id, True))
-        elif action == 'unreveal':
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'reveal_votes',
-                    'reveal': {
-                        'story_id': story_id,
-                        'username': self.user.username,
-                        'value': False,
+                )
+                asyncio.create_task(self.safe_story_reveal_update(story_id, True))
+            case 'unreveal':
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'reveal_votes',
+                        'reveal': {
+                            'story_id': story_id,
+                            'username': self.user.username,
+                            'value': False,
+                        }
                     }
-                }
-            )
-            asyncio.create_task(self.safe_story_reveal_update(story_id, False))
-        elif action == 'reset':
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'reset_votes',
-                    'reset': {
-                        'story_id': story_id,
-                        'username': self.user.username,
+                )
+                asyncio.create_task(self.safe_story_reveal_update(story_id, False))
+            case 'reset':
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'reset_votes',
+                        'reset': {
+                            'story_id': story_id,
+                            'username': self.user.username,
+                        }
                     }
-                }
-            )
-            asyncio.create_task(self.safe_story_reveal_update(story_id, False))
-        elif action == 'vote':
-            vote_value = data['value']
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'vote_update',
-                    'vote': {
-                        'story_id': story_id,
-                        'username': self.user.username,
-                        'value': vote_value,
+                )
+                asyncio.create_task(self.safe_story_reveal_update(story_id, False))
+            case 'vote':
+                vote_value = data['value']
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'vote_update',
+                        'vote': {
+                            'story_id': story_id,
+                            'username': self.user.username,
+                            'value': vote_value,
+                        }
                     }
-                }
-            )
-            asyncio.create_task(self.safe_save_vote_update(story_id, self.user, vote_value))
-        elif action == 'add_story':
-            title = data['title']
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'add_story',
-                    'story': {
-                        'id': story_id,
-                        'title': title,
-                        'is_revealed': False,
+                )
+                asyncio.create_task(self.safe_save_vote_update(story_id, self.user, vote_value))
+            case 'add_story':
+                title = data['title']
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'add_story',
+                        'story': {
+                            'id': story_id,
+                            'title': title,
+                            'is_revealed': False,
+                        }
                     }
-                }
-            )
-        elif action == 'remove_story':
-            title = data['title']
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'remove_story',
-                    'story': {
-                        'id': story_id,
-                        'title': title,
-                        'is_revealed': False,
+                )
+            case 'remove_story':
+                title = data['title']
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'remove_story',
+                        'story': {
+                            'id': story_id,
+                            'title': title,
+                            'is_revealed': False,
+                        }
                     }
-                }
-            )
-        elif action == 'summon':
-            title = data['title']
-            is_revealed = data['is_revealed']
-            await self.channel_layer.group_send(
-                self.group_name,
-                {
-                    'type': 'summon',
-                    'story': {
-                        'id': story_id,
-                        'title': title,
-                        'is_revealed': is_revealed,
+                )
+            case 'summon':
+                title = data['title']
+                is_revealed = data['is_revealed']
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'summon',
+                        'story': {
+                            'id': story_id,
+                            'title': title,
+                            'is_revealed': is_revealed,
+                        }
                     }
-                }
-            )
+                )
 
     async def summon(self, event):
         """
