@@ -15,33 +15,34 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_add(self.group_name, self.channel_name)
         await self.accept()
 
-        print(f"Sending: {self.user.username}")
-        await self.channel_layer.group_send(
-            self.group_name,
-            {
-                'type': 'participant_add',
-                'participants': {
-                    'id': self.user.id,
-                    'username': self.user.username,
-                }
-            }
-        )
-        asyncio.create_task(self.save_add_participant())
+        # print(f"Sending: {self.user.username}")
+        # await self.channel_layer.group_send(
+        #     self.group_name,
+        #     {
+        #         'type': 'participant_add',
+        #         'participants': {
+        #             'id': self.user.id,
+        #             'username': self.user.username,
+        #         }
+        #     }
+        # )
+        # asyncio.create_task(self.save_add_participant())
 
     async def disconnect(self, close_code):
         await self.channel_layer.group_discard(self.group_name, self.channel_name)
 
-        await self.channel_layer.group_send(
-            self.group_name,
-            {
-                'type': 'participant_remove',
-                'participants': {
-                    'id': self.user.id,
-                    'username': self.user.username,
-                }
-            }
-        )
-        asyncio.create_task(self.save_remove_participant())
+        # print(f"Sending remove: {self.user.username}")
+        # await self.channel_layer.group_send(
+        #     self.group_name,
+        #     {
+        #         'type': 'participant_remove',
+        #         'participants': {
+        #             'id': self.user.id,
+        #             'username': self.user.username,
+        #         }
+        #     }
+        # )
+        # asyncio.create_task(self.save_remove_participant())
 
     async def receive(self, text_data):
         """
@@ -50,8 +51,35 @@ class RevealVotesConsumer(AsyncWebsocketConsumer):
         data = json.loads(text_data)
         action = data['action']
         story_id = data['story_id']
+        print(f"Received action: {action} for story_id: {story_id}")
         
         match action:
+            case 'add_p':
+                print(f"Sending: {self.user.username}")
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'participant_add',
+                        'participants': {
+                            'id': self.user.id,
+                            'username': self.user.username,
+                        }
+                    }
+                )
+                asyncio.create_task(self.save_add_participant())
+            case 'remove_p':
+                print(f"Sending remove: {self.user.username}")
+                await self.channel_layer.group_send(
+                    self.group_name,
+                    {
+                        'type': 'participant_remove',
+                        'participants': {
+                            'id': self.user.id,
+                            'username': self.user.username,
+                        }
+                    }
+                )
+                asyncio.create_task(self.save_remove_participant())
             case 'reveal':
                 await self.channel_layer.group_send(
                     self.group_name,
