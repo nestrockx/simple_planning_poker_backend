@@ -11,9 +11,6 @@ import os
 import django
 from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
-
-# from simple_planning_poker.middlewares.tokenauth import TokenAuthMiddleware
-# from simple_planning_poker.middlewares.cookietokenauth import CookieTokenAuthMiddleware
 from simple_planning_poker.middlewares.cookieorheadertokenauth import CookieOrHeaderTokenAuthMiddleware
 from simple_planning_poker.routing import websocket_urlpatterns
 

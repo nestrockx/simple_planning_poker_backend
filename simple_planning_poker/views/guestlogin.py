@@ -11,10 +11,10 @@ import random
 import string
 
 class CustomAnonThrottle(AnonRateThrottle):
-    rate = '5/hour'
+    rate = '10/hour'
 
 class CustomUserThrottle(UserRateThrottle):
-    rate = '5/hour'
+    rate = '10/hour'
 
 class GuestLoginView(APIView):
     throttle_classes = [CustomAnonThrottle, CustomUserThrottle]
