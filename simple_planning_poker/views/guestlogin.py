@@ -10,14 +10,14 @@ from simple_planning_poker.models.userprofile import UserProfile
 import random
 import string
 
-class CustomAnonThrottle(AnonRateThrottle):
+class CustomGuestLoginAnonThrottle(AnonRateThrottle):
     rate = '10/hour'
 
-class CustomUserThrottle(UserRateThrottle):
+class CustomGuestLoginUserThrottle(UserRateThrottle):
     rate = '10/hour'
 
 class GuestLoginView(APIView):
-    throttle_classes = [CustomAnonThrottle, CustomUserThrottle]
+    throttle_classes = [CustomGuestLoginAnonThrottle, CustomGuestLoginUserThrottle]
     permission_classes = [AllowAny]
 
     def post(self, request):
