@@ -3,15 +3,15 @@ from rest_framework.authtoken.models import Token
 from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
 from rest_framework.response import Response
 
-class CustomLoginAnonThrottle(AnonRateThrottle):
-    rate = '10/hour'
+# class CustomLoginAnonThrottle(AnonRateThrottle):
+#     rate = '10/hour'
 
-class CustomLoginUserThrottle(UserRateThrottle):
-    rate = '10/hour'
+# class CustomLoginUserThrottle(UserRateThrottle):
+#     rate = '10/hour'
 
 # Login (token auth)
 class CustomAuthToken(ObtainAuthToken):
-    throttle_classes = [CustomLoginAnonThrottle, CustomLoginUserThrottle]
+    # throttle_classes = [CustomLoginAnonThrottle, CustomLoginUserThrottle]
 
     def post(self, request, *args, **kwargs):
         response = super().post(request, *args, **kwargs)

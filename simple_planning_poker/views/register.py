@@ -8,15 +8,15 @@ from rest_framework.response import Response
 
 from simple_planning_poker.models.userprofile import UserProfile
 
-class CustomRegisterAnonThrottle(AnonRateThrottle):
-    rate = '3/hour'
+# class CustomRegisterAnonThrottle(AnonRateThrottle):
+#     rate = '3/hour'
 
-class CustomRegisterUserThrottle(UserRateThrottle):
-    rate = '3/hour'
+# class CustomRegisterUserThrottle(UserRateThrottle):
+#     rate = '3/hour'
 
 # Register
 class RegisterView(APIView):
-    throttle_classes = [CustomRegisterAnonThrottle, UserRateThrottle]
+    # throttle_classes = [CustomRegisterAnonThrottle, UserRateThrottle]
     permission_classes = [AllowAny]
 
     def post(self, request):
