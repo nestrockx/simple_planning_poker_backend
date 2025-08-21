@@ -18,6 +18,7 @@ import string
 
 class GuestLoginView(APIView):
     # throttle_classes = [CustomGuestLoginAnonThrottle, CustomGuestLoginUserThrottle]
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):

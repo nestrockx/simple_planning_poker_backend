@@ -17,6 +17,7 @@ from simple_planning_poker.models.userprofile import UserProfile
 # Register
 class RegisterView(APIView):
     # throttle_classes = [CustomRegisterAnonThrottle, UserRateThrottle]
+    authentication_classes = []
     permission_classes = [AllowAny]
 
     def post(self, request):
