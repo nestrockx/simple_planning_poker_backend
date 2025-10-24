@@ -33,6 +33,7 @@ from simple_planning_poker.views.storydelete import StoryDeleteView
 from simple_planning_poker.views.storycreate import StoryCreateView
 from simple_planning_poker.views.votedelete import VoteDeleteByStoryView
 from simple_planning_poker.views.roomlistcreate import RoomListCreateView
+from simple_planning_poker.views.deleteuserdata import DeleteUserDataView
 from simple_planning_poker.views.userget import UserGetByTokenView, UserGetByIdView
 from simple_planning_poker.views.storyget import StoryGetByIdView, StoryGetByRoomView
 
@@ -59,5 +60,6 @@ urlpatterns = [
     path('api/userinfo/<int:user_id>/', UserGetByIdView.as_view(), name='user-info-by-id'),
     path('api/empty/', EmptyView.as_view(), name='empty-view'),
     path('api/profile/', UserProfileUpdateView.as_view(), name='update-profile'),
+    path('api/delete-user-data/', DeleteUserDataView(), name='delete-user-data'),
     path('health/', health_check),
 ]
