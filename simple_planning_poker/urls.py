@@ -60,6 +60,6 @@ urlpatterns = [
     path('api/userinfo/<int:user_id>/', UserGetByIdView.as_view(), name='user-info-by-id'),
     path('api/empty/', EmptyView.as_view(), name='empty-view'),
     path('api/profile/', UserProfileUpdateView.as_view(), name='update-profile'),
-    path('api/delete-user-data/', DeleteUserDataView(), name='delete-user-data'),
+    path('api/deleteuserdata/', DeleteUserDataView(), name='delete-user-data'),
     path('health/', health_check),
 ]
